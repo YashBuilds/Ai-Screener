@@ -7,7 +7,8 @@ const ResumeViewer = () => {
   const { data } = useQuery({
     queryKey: ['resume', id],
     queryFn: async () => {
-      const res = await api.get(/candidates/);
+      // Fixed: Changed /regex/ to template string with id variable
+      const res = await api.get(`/candidates/${id}`);
       return res.data;
     },
   });

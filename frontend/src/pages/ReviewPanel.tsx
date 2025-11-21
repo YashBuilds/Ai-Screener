@@ -9,7 +9,8 @@ const ReviewPanel = () => {
   const [status, setStatus] = useState('');
 
   const handleSave = async () => {
-    await api.post(/candidates//review, { scores: { quality: qualityScore }, notes });
+    // Fixed: Changed /regex/ to template string with id variable
+    await api.post(`/candidates/${id}/review`, { scores: { quality: qualityScore }, notes });
     setStatus('Review saved');
   };
 

@@ -68,7 +68,8 @@ const Dashboard = () => {
       <DataTable
         data={data}
         columns={[
-          { header: 'Name', accessor: 'name', render: (value, row) => <Link to={/candidates/}>{value}</Link> },
+          // Fixed: Changed /regex/ to template string, row._id is the proper field
+          { header: 'Name', accessor: 'name', render: (value, row) => <Link to={`/candidates/${row._id}`}>{value}</Link> },
           { header: 'Role', accessor: 'roleApplied' },
           { header: 'Resume', accessor: 'scores', render: (_v, row) => <ScoreBadge value={row.scores?.resume ?? 0} /> },
           { header: 'Status', accessor: 'statusHistory', render: (_v, row) => row.statusHistory?.at(-1)?.stage ?? 'N/A' },
