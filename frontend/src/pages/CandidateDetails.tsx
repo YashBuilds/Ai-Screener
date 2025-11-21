@@ -8,7 +8,8 @@ const CandidateDetails = () => {
   const { id } = useParams();
   const { data } = useQuery({
     queryKey: ['candidate', id],
-    queryFn: async () => (await api.get(/candidates/)).data,
+    // Fixed: Changed /regex/ to template string with id variable
+    queryFn: async () => (await api.get(`/candidates/${id}`)).data,
   });
 
   if (!data) return <p>Loading...</p>;
@@ -21,9 +22,10 @@ const CandidateDetails = () => {
           <p>{data.email}</p>
         </div>
         <div className="actions">
-          <Link to={/candidates//resume}>View Resume</Link>
-          <Link to={/assignments/}>Assignment</Link>
-          <Link to={/review/}>Review Panel</Link>
+          {/* Fixed: All three Links changed from /regex/ to template strings */}
+          <Link to={`/candidates/${id}/resume`}>View Resume</Link>
+          <Link to={`/assignments/${id}`}>Assignment</Link>
+          <Link to={`/review/${id}`}>Review Panel</Link>
         </div>
       </div>
       <AISummaryCard summary={data.summary} />
