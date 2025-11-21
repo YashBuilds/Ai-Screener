@@ -5,6 +5,7 @@ import { useCandidates } from '../hooks/useCandidates';
 import { Link } from 'react-router-dom';
 import { FileUploader } from '../components/FileUploader';
 import { api } from '../utils/apiClient';
+import { Candidate } from '../types'; // Add this import
 
 const Dashboard = () => {
   const [search, setSearch] = useState('');
@@ -68,8 +69,8 @@ const Dashboard = () => {
       <DataTable
         data={data}
         columns={[
-          // Fixed: Changed /regex/ to template string, row._id is the proper field
-          { header: 'Name', accessor: 'name', render: (value, row) => <Link to={`/candidates/${row._id}`}>{value}</Link> },
+          // Cast row to Candidate type
+          { header: 'Name', accessor: 'name', render: (value, row) => <Link to={`/candidates/${(row as Candidate)._id}`}>{value}</Link> },
           { header: 'Role', accessor: 'roleApplied' },
           { header: 'Resume', accessor: 'scores', render: (_v, row) => <ScoreBadge value={row.scores?.resume ?? 0} /> },
           { header: 'Status', accessor: 'statusHistory', render: (_v, row) => row.statusHistory?.at(-1)?.stage ?? 'N/A' },
